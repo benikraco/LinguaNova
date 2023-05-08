@@ -3,29 +3,31 @@
 ## EBNF
 
 ```lua
-LinguaNova = {INSTRUCTIO} ;
+BLOCK = "{", {STATEMENT}, "}";
 
-INSTRUCTIO = VARIABILE | IMPRESSIO | SIINSTRUCTIO | DUMINSTRUCTIO | FUNCTIODEFINITIO | RETURNINSTRUCTIO ;
+STATEMENT = VARIABLE_ASSIGNMENT | PRINT | IF_STATEMENT | WHILE_STATEMENT | RETURN_STATEMENT ;
 
-VARIABILE = IDENTIFIER "=" EXPRESSIO ;
-IMPRESSIO = "imprimo" "(" EXPRESSIO ")" ;
-SIINSTRUCTIO = "si" "(" EXPRESSIO ")" ":" {INSTRUCTIO} ["alioquin" ":" {INSTRUCTIO}] ;
-DUMINSTRUCTIO = "dum" "(" EXPRESSIO ")" ":" {INSTRUCTIO} ;
-FUNCTIODEFINITIO = "functio" IDENTIFIER "(" [IDENTIFIER {"," IDENTIFIER}] ")" ":" {INSTRUCTIO} ;
-RETURNINSTRUCTIO = "redde" "(" EXPRESSIO ")" ;
+VARIABLE_ASSIGNMENT = IDENTIFIER, "=" RELEXPRESSION, ";" ;
+PRINT = "imprimir" "(" RELEXPRESSION, ");" ;
+IF_STATEMENT = "se" "(" RELEXPRESSION, ")" "{" STATEMENT, "}" {"senao" "{" STATEMENT, "}"} ;
+WHILE_STATEMENT = "enquanto" "(" RELEXPRESSION, ")" "{" STATEMENT, "}" ;
+FUNCTION_DEFINITION = "df" IDENTIFIER, "(" {IDENTIFIER, {","}, (":"), TYPE, ")"}, ")" BLOCK ;
+VARIABLE_DEFINITION = "var" IDENTIFIER, {",", IDENTIFIER}, ":", TYPE, ";" ;
+RETURN_STATEMENT = "retornar" RELEXPRESSION, ";" ;
 
-EXPRESSIO = TERMINUS {("+" | "-") TERMINUS} | LOGICAL ;
-TERMINUS = FACTUM {("*" | "/") FACTUM} ;
-FACTUM = NUMERUS | IDENTIFIER | "(" EXPRESSIO ")" | UNARYOP FACTUM | IDENTIFIER "(" [EXPRESSIO {"," EXPRESSIO}] ")" ;
-UNARYOP = "+" | "-" | "!" | "non" ;
+EXPRESSION = TERM, {("+" | "-") TERM} | LOGICAL ;
+TERM = FACTOR, {("*" | "/" | "&&") FACTOR} ;
+FACTOR = NUMBER | STRING | IDENTIFIER | ("+" | "-" | "!") FACTOR | "(" RELEXPRESSION, ")" ;
+RELEXPRESSION = FACTOR, ("igual" | "diferente" | "menor_que" | "menor_igual" | "maior_que" | "maior_igual") FACTOR ;
+LOGICAL = COMPARISON, {("e" | "ou") COMPARISON} ;
 
-COMPARATIO = EXPRESSIO ("==" | "!=" | "<" | "<=" | ">" | ">=") EXPRESSIO ;
-LOGICAL = COMPARATIO {("et" | "vel") COMPARATIO} ;
+IDENTIFIER = LETTER, {LETTER | DIGIT | "_"} ;
+LETTER = (("a" .. "z") | ("A" .. "Z")) ;
+DIGIT = ("0" .. "9") ;
+NUMBER = DIGIT, {DIGIT} [ "." DIGIT, {DIGIT} ] ;
+STRING = """, { {LETTER | DIGIT | "_"} | SPACE }, """ ;
+SPACE = " ";
+TYPE = "int" | "bool" | "texto" ;
 
-IDENTIFIER = LITTERA {LITTERA | CIFRA} ;
-LITTERA = ("a" | ... | "z" | ... | "A" | ... | "Z" ) ;
-CIFRA = ("0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9") ;
-
-NUMERUS = [ "-" ] CIFRA {CIFRA} [ "." CIFRA {CIFRA} ] ;
 ```
   
