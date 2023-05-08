@@ -18,7 +18,7 @@ RETURN_STATEMENT = "retornar" RELEXPRESSION, ";" ;
 EXPRESSION = TERM, {("+" | "-") TERM} | LOGICAL ;
 TERM = FACTOR, {("*" | "/" | "&&") FACTOR} ;
 FACTOR = NUMBER | STRING | IDENTIFIER | ("+" | "-" | "!") FACTOR | "(" RELEXPRESSION, ")" ;
-RELEXPRESSION = FACTOR, ("igual" | "diferente" | "menor_que" | "menor_igual" | "maior_que" | "maior_igual") FACTOR ;
+RELEXPRESSION = FACTOR, ("igual" | "diferente" | "menor_que" | "maior_que") FACTOR ;
 LOGICAL = COMPARISON, {("e" | "ou") COMPARISON} ;
 
 IDENTIFIER = LETTER, {LETTER | DIGIT | "_"} ;

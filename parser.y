@@ -12,6 +12,8 @@
 %token OPEN_PAR CLOSE_PAR SEMI_COLON COMMA OPEN_KEY CLOSE_KEY
 %token INT_TYPE BOOL_TYPE FLOAT_TYPE TEXT_TYPE 
 %token TRUE FALSE
+%token NOT
+%token PRINT
 
 %start program
 
@@ -33,7 +35,7 @@ statement : assignment
           | print
           | if
           | while
-          | return
+          | return_stmt
           SEMI_COLON
           ;
 
@@ -65,7 +67,7 @@ factor : INTEGER
        | OPEN_PAR expression CLOSE_PAR
        ;
 
-assignment: TYPE IDENTIFIER EQUAL relexpression SEMI_COLON
+assignment: INT_TYPE IDENTIFIER EQUAL relexpression SEMI_COLON
           ;
 print: PRINT OPEN_PAR relexpression CLOSE_PAR SEMI_COLON
      ;
@@ -76,9 +78,10 @@ else: ELSE statement
     ;
 while: WHILE OPEN_PAR relexpression CLOSE_PAR OPEN_KEY block CLOSE_KEY
      ;
-type_var: VAR_TYPE IDENTIFIER SEMI_COLON
-        | COMMA IDENTIFIER SEMI_COLON
-        ;
+print: PRINT OPEN_PAR relexpression CLOSE_PAR
+     ;
+return_stmt: RETURN expression
+           ;
 
 %%
 
@@ -86,4 +89,3 @@ int main() {
   yyparse();
   return 0;
 }
-```

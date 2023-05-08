@@ -9,31 +9,26 @@
 [ \t\n]                 ;
 [a-zA-Z][a-zA-Z0-9]     return IDENTIFIER;
 [a-zA-Z0-9]             return STRING;
-[0-9]+                  return INTEGER;
 [0-9]+[.][0-9]+         return FLOAT;
-
+[0-9]+                  return INTEGER;
 
 "enquanto"              return WHILE;
-"se"                    return IF;
+"se-"                   return IF;
 "senao"                 return ELSE;
 "imprimir"              return PRINT;
-"df"                    return FUNC_TYPE;
 "retornar"              return RETURN;
-"para"                  return FOR;
 
 "="                     return EQUAL;
+"=="                    return EQUAL_TO;
+"!"                     return NOT;
 "+"                     return PLUS;
 "-"                     return MINUS;
 "*"                     return MULT;
 "/"                     return DIV;
-"e"                     return AND;
-"ou"                    return OR;
-"igual"                 return EQUAL_TO;
-"diferente"             return NOT_EQUAL_TO;
-"maior_que"             return GREATER_THAN;
-"menor_que"             return LESS_THAN;
-"maior_igual"           return GREATER_THAN_EQUAL_TO;
-"menor_igual"           return LESS_THAN_EQUAL_TO;
+"e_op"                  return AND;
+"||"                    return OR;
+">"                     return GREATER_THAN;
+"<"                     return LESS_THAN;
 "("                     return OPEN_PAR;
 ")"                     return CLOSE_PAR;
 ";"                     return SEMI_COLON;
