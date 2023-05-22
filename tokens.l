@@ -1,47 +1,43 @@
 %{
-#include <stdio.h>
-#include <string.h>
 #include "parser.tab.h"
 %}
 
 %%
 
-[ \t\n]                 ;
-[a-zA-Z][a-zA-Z0-9]     return IDENTIFIER;
-[a-zA-Z0-9]             return STRING;
-[0-9]+[.][0-9]+         return FLOAT;
-[0-9]+                  return INTEGER;
+"funcao"   return FUNCAO; 
+"imprime"  return IMPRIME; 
+"se"  return SE; 
+"senao"  return SENAO; 
+"enquanto"  return ENQUANTO; 
+"retorna"  return RETORNA; 
+"e"  return E; 
+"ou"  return OU; 
 
-"enquanto"              return WHILE;
-"se-"                   return IF;
-"senao"                 return ELSE;
-"imprimir"              return PRINT;
-"retornar"              return RETURN;
+"+"  return SOMA; 
+"-"  return SUBTRACAO; 
+"*"  return MULTIPLICACAO; 
+"/"  return DIVISAO; 
 
-"="                     return EQUAL;
-"=="                    return EQUAL_TO;
-"!"                     return NOT;
-"+"                     return PLUS;
-"-"                     return MINUS;
-"*"                     return MULT;
-"/"                     return DIV;
-"e_op"                  return AND;
-"||"                    return OR;
-">"                     return GREATER_THAN;
-"<"                     return LESS_THAN;
-"("                     return OPEN_PAR;
-")"                     return CLOSE_PAR;
-";"                     return SEMI_COLON;
-","                     return COMMA;
-"{"                     return OPEN_KEY;
-"}"                     return CLOSE_KEY;
+"=="  return IGUAL; 
+">"  return MAIOR; 
+"<"  return MENOR; 
+">="  return MAIOR_IGUAL; 
+"<="  return MENOR_IGUAL; 
+"!="  return DIFERENTE; 
 
-"int"                   return INT_TYPE;
-"bool"                  return BOOL_TYPE;
-"texto"                 return TEXT_TYPE;
-"verdadeiro"            return TRUE;
-"falso"                 return FALSE;
+";"  return PONTO_E_VIRGULA; 
+"("  return ABRE_PARENTESE; 
+")"  return FECHA_PARENTESE; 
+"{"  return ABRE_CHAVES; 
+"}"  return FECHA_CHAVES; 
+","  return VIRGULA; 
+"="  return ATRIBUICAO; 
 
-.                       printf("Unknown token!n"); yyterminate();
+[0-9]+ return NUMERO;
+[a-zA-Z][a-zA-Z0-9_]*  return IDENTIFICADOR; 
+\"[^"]*\"   return STRING;
+
+[ \t\n] /* ignore whitespace */ 
+.  printf("Caracter inválido: %s\n", yytext); 
 
 %%

@@ -1,91 +1,128 @@
 %{
-  #include<stdio.h>
-  int yylex();
-  void yyerror(const char *s) { printf("ERROR: %sn", s); }
+#include <stdio.h>
+#include <stdlib.h>
+int yylex();
+void yyerror(const char *s){
+    printf("Erro sintático: %s\n", s);
+    exit(1);};
 %}
 
-%token IDENTIFIER STRING INTEGER FLOAT
-%token IF ELSE WHILE FOR RETURN
-%token PLUS MINUS MULT DIV
-%token AND OR 
-%token EQUAL EQUAL_TO NOT_EQUAL_TO LESS_THAN GREATER_THAN LESS_THAN_EQUAL_TO GREATER_THAN_EQUAL_TO
-%token OPEN_PAR CLOSE_PAR SEMI_COLON COMMA OPEN_KEY CLOSE_KEY
-%token INT_TYPE BOOL_TYPE FLOAT_TYPE TEXT_TYPE 
-%token TRUE FALSE
-%token NOT
-%token PRINT
 
-%start program
+%token FUNCAO IMPRIME SE SENAO ENQUANTO RETORNA E OU
+%token SOMA SUBTRACAO MULTIPLICACAO DIVISAO
+%token IGUAL MAIOR MENOR MAIOR_IGUAL MENOR_IGUAL DIFERENTE
+%token PONTO_E_VIRGULA ABRE_PARENTESE FECHA_PARENTESE ABRE_CHAVES FECHA_CHAVES VIRGULA ATRIBUICAO
+%token NUMERO IDENTIFICADOR STRING
 
 %%
 
-program: statement_list
+programa: 
+    /* vazio */ 
+    | programa declaracao 
     ;
 
-block : OPEN_KEY statement_list CLOSE_KEY
-      | OPEN_KEY CLOSE_KEY
-      ;
-
-statement_list : statement
-               | statement_list statement
-               ;
-
-statement : assignment
-          | block
-          | print
-          | if
-          | while
-          | return_stmt
-          SEMI_COLON
-          ;
-
-relexpression : expression EQUAL_TO expression
-              | expression NOT_EQUAL_TO expression
-              | expression LESS_THAN expression
-              | expression GREATER_THAN expression
-              | expression LESS_THAN_EQUAL_TO expression
-              | expression GREATER_THAN_EQUAL_TO expression
-              ;
-
-expression : term PLUS expression
-           | term MINUS expression
-           | term
-           ;
-
-term : factor MULT term
-     | factor DIV term
-     | factor
-     ;
-
-factor : INTEGER
-       | STRING
-       | FLOAT
-       | IDENTIFIER
-       | PLUS factor
-       | MINUS factor
-       | NOT factor
-       | OPEN_PAR expression CLOSE_PAR
-       ;
-
-assignment: INT_TYPE IDENTIFIER EQUAL relexpression SEMI_COLON
-          ;
-print: PRINT OPEN_PAR relexpression CLOSE_PAR SEMI_COLON
-     ;
-if: IF OPEN_PAR relexpression CLOSE_PAR statement
-  | IF OPEN_PAR relexpression CLOSE_PAR statement else
-  ;
-else: ELSE statement
+declaracao:
+    atribuicao PONTO_E_VIRGULA
+    | impressao PONTO_E_VIRGULA
+    | condicional
+    | laco
+    | funcao
+    | chamada_funcao PONTO_E_VIRGULA
     ;
-while: WHILE OPEN_PAR relexpression CLOSE_PAR OPEN_KEY block CLOSE_KEY
-     ;
-print: PRINT OPEN_PAR relexpression CLOSE_PAR
-     ;
-return_stmt: RETURN expression
-           ;
+
+declaracoes:
+    /* vazio */
+    | declaracoes declaracao
+    ;
+
+atribuicao:
+    IDENTIFICADOR ATRIBUICAO expressao PONTO_E_VIRGULA
+    ;
+
+impressao:
+    IMPRIME ABRE_PARENTESE expressao FECHA_PARENTESE PONTO_E_VIRGULA
+    ;
+
+condicional:
+    SE ABRE_PARENTESE condicao FECHA_PARENTESE bloco
+    | SE ABRE_PARENTESE condicao FECHA_PARENTESE bloco SENAO bloco
+    ;
+
+laco:
+    ENQUANTO ABRE_PARENTESE condicao FECHA_PARENTESE bloco
+    ;
+
+funcao:
+    FUNCAO IDENTIFICADOR ABRE_PARENTESE parametros FECHA_PARENTESE bloco
+    ;
+
+chamada_funcao:
+    IDENTIFICADOR ATRIBUICAO IDENTIFICADOR ABRE_PARENTESE argumentos FECHA_PARENTESE
+    ;
+
+bloco:
+    ABRE_CHAVES declaracoes FECHA_CHAVES 
+    | ABRE_CHAVES declaracoes retorno FECHA_CHAVES
+    ;
+
+retorno:
+    RETORNA expressao PONTO_E_VIRGULA
+    RETORNA PONTO_E_VIRGULA
+    ;
+
+parametros:
+    /* vazio */
+    | lista_identificadores
+    ;
+
+argumentos:
+    /* vazio */
+    | lista_expressoes
+    ;
+
+condicao:
+    expressao
+    ;
+
+lista_identificadores:
+    IDENTIFICADOR
+    | lista_identificadores VIRGULA IDENTIFICADOR
+    ;
+
+lista_expressoes:
+    expressao
+    | lista_expressoes VIRGULA expressao
+    ;
+
+expressao:
+    termo
+    | expressao operador_aditivo termo
+    ;
+
+termo:
+    fator
+    | termo operador_multiplicativo fator
+    ;
+
+fator:
+    NUMERO
+    | IDENTIFICADOR
+    | chamada_funcao
+    | ABRE_PARENTESE expressao FECHA_PARENTESE
+    ;
+
+operador_aditivo:
+    SOMA
+    | SUBTRACAO
+    ;
+
+operador_multiplicativo:
+    MULTIPLICACAO
+    | DIVISAO
+    ;
 
 %%
 
-int main() {
-  yyparse();
-  return 0;
+int main(void) {
+    yyparse();
 }

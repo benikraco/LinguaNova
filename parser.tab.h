@@ -39,81 +39,65 @@
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     IDENTIFIER = 258,
-     STRING = 259,
-     INTEGER = 260,
-     FLOAT = 261,
-     IF = 262,
-     ELSE = 263,
-     WHILE = 264,
-     FOR = 265,
-     RETURN = 266,
-     PLUS = 267,
-     MINUS = 268,
-     MULT = 269,
-     DIV = 270,
-     AND = 271,
-     OR = 272,
-     EQUAL = 273,
-     EQUAL_TO = 274,
-     NOT_EQUAL_TO = 275,
-     LESS_THAN = 276,
-     GREATER_THAN = 277,
-     LESS_THAN_EQUAL_TO = 278,
-     GREATER_THAN_EQUAL_TO = 279,
-     OPEN_PAR = 280,
-     CLOSE_PAR = 281,
-     SEMI_COLON = 282,
-     COMMA = 283,
-     OPEN_KEY = 284,
-     CLOSE_KEY = 285,
-     INT_TYPE = 286,
-     BOOL_TYPE = 287,
-     FLOAT_TYPE = 288,
-     TEXT_TYPE = 289,
-     TRUE = 290,
-     FALSE = 291,
-     NOT = 292,
-     PRINT = 293
+     FUNCAO = 258,
+     IMPRIME = 259,
+     SE = 260,
+     SENAO = 261,
+     ENQUANTO = 262,
+     RETORNA = 263,
+     E = 264,
+     OU = 265,
+     SOMA = 266,
+     SUBTRACAO = 267,
+     MULTIPLICACAO = 268,
+     DIVISAO = 269,
+     IGUAL = 270,
+     MAIOR = 271,
+     MENOR = 272,
+     MAIOR_IGUAL = 273,
+     MENOR_IGUAL = 274,
+     DIFERENTE = 275,
+     PONTO_E_VIRGULA = 276,
+     ABRE_PARENTESE = 277,
+     FECHA_PARENTESE = 278,
+     ABRE_CHAVES = 279,
+     FECHA_CHAVES = 280,
+     VIRGULA = 281,
+     ATRIBUICAO = 282,
+     NUMERO = 283,
+     IDENTIFICADOR = 284,
+     STRING = 285
    };
 #endif
 /* Tokens.  */
-#define IDENTIFIER 258
-#define STRING 259
-#define INTEGER 260
-#define FLOAT 261
-#define IF 262
-#define ELSE 263
-#define WHILE 264
-#define FOR 265
-#define RETURN 266
-#define PLUS 267
-#define MINUS 268
-#define MULT 269
-#define DIV 270
-#define AND 271
-#define OR 272
-#define EQUAL 273
-#define EQUAL_TO 274
-#define NOT_EQUAL_TO 275
-#define LESS_THAN 276
-#define GREATER_THAN 277
-#define LESS_THAN_EQUAL_TO 278
-#define GREATER_THAN_EQUAL_TO 279
-#define OPEN_PAR 280
-#define CLOSE_PAR 281
-#define SEMI_COLON 282
-#define COMMA 283
-#define OPEN_KEY 284
-#define CLOSE_KEY 285
-#define INT_TYPE 286
-#define BOOL_TYPE 287
-#define FLOAT_TYPE 288
-#define TEXT_TYPE 289
-#define TRUE 290
-#define FALSE 291
-#define NOT 292
-#define PRINT 293
+#define FUNCAO 258
+#define IMPRIME 259
+#define SE 260
+#define SENAO 261
+#define ENQUANTO 262
+#define RETORNA 263
+#define E 264
+#define OU 265
+#define SOMA 266
+#define SUBTRACAO 267
+#define MULTIPLICACAO 268
+#define DIVISAO 269
+#define IGUAL 270
+#define MAIOR 271
+#define MENOR 272
+#define MAIOR_IGUAL 273
+#define MENOR_IGUAL 274
+#define DIFERENTE 275
+#define PONTO_E_VIRGULA 276
+#define ABRE_PARENTESE 277
+#define FECHA_PARENTESE 278
+#define ABRE_CHAVES 279
+#define FECHA_CHAVES 280
+#define VIRGULA 281
+#define ATRIBUICAO 282
+#define NUMERO 283
+#define IDENTIFICADOR 284
+#define STRING 285
 
 
 
